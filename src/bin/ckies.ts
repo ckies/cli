@@ -16,9 +16,9 @@ const pkg = JSON.parse(
 
 prog
   .version(pkg.version || '0.0.0-dev')
-  .option('--config <file>', 'Use <file> configuration. Default to `cookies.yml`', prog.STRING, 'cookies.yml')
-  .option('--format <type>', 'Use <type> to configure file format. Default to `html`, use `markdown` if you want', /^html|markdown$/, 'html')
-  .option('--output <path>', 'Write files to <path>.', prog.STRING)
+  .option('--config <file>', 'Use <file> asconfiguration', prog.STRING, 'cookies.yml')
+  .option('--format <type>', 'Use <type> to configure file format (html, markdown)', /^html|markdown$/, 'html')
+  .option('--output <path>', 'Write files to <path>', prog.STRING)
   .action((args, options, logger) => {
     const cfg = new Config(options.config)
 
