@@ -9,7 +9,6 @@ import * as path from 'path'
 export interface Configuration {
   name: string
   info?: string
-  output?: string
   languages?: string[]
   services?: string[]
   additions?: Cookie[]
@@ -24,14 +23,6 @@ export class Config {
     } else {
       this.data = config
     }
-
-    /* if (this.output && !fs.existsSync(this.output)) {
-      throw new Error(`Unable to find output directory: ${this.output}`)
-    } */
-  }
-
-  get output() {
-    return this.data.output && path.resolve(this.data.output)
   }
 
   get name() {

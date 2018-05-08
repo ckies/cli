@@ -12,12 +12,8 @@ import { Config } from '../lib/Config'
 
 prog
   .version('0.0.1')
-  .option(
-    '--config <file>',
-    'Use <file> configuration. Default to `cookies.yml`',
-    prog.STRING,
-    'cookies.yml'
-  )
+  .option('--config <file>', 'Use <file> configuration. Default to `cookies.yml`', prog.STRING, 'cookies.yml')
+  .option('--output <path>', 'Write files to <path>. Default to `./dist/cookies`', prog.STRING)
   .action((args, options, logger) => {
     const cfg = new Config(options.config)
 
@@ -47,9 +43,12 @@ prog
       (cookie) => console.log(`     - ${cookie.name}`)
     )
 
-    if (!cfg.output) {
+    if (!options.output) {
+      console.log(` - Skipped build process.\n   Use --output to configure destination.`)
       return
     }
+
+    const outputPath = path.resolve(options.output)
 
     console.log(` - Building …`)
     const languages = cfg.languages.map(
@@ -64,17 +63,14 @@ prog
 
     languages.forEach(
       (language) => {
-        if (!cfg.output) {
-          return
-        }
-
-        const languagePath = path.resolve(cfg.output, `${language.language}/`)
+        const languagePath = path.resolve(outputPath, `${language.language}/`)
         mkdirp.sync(languagePath)
 
         fs.writeFileSync(path.resolve(languagePath, `policy.html`), language.files.policy.toHTML())
         fs.writeFileSync(path.resolve(languagePath, `settings.html`), language.files.settings.toHTML())
       }
     )
+    console.log(` - Files written to ./${path.relative(path.resolve('.'), outputPath)}`)
   })
 
 prog.parse(process.argv)
