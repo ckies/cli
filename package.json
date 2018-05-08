@@ -1,8 +1,7 @@
 {
   "name": "@ckies/cli",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Command Line Tool to generate Cookie Policy / Settings",
+  "main": "./dist/index.js",
   "scripts": {
     "prebuild": "rm -rf ./dist",
     "build": "tsc",
@@ -14,8 +13,8 @@
     "ckies": "./dist/bin/ckies.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Sebastian Müller <code@sbstjn.com>",
+  "license": "MIT",
   "dependencies": {
     "@ckies/builder": "^0.0.2",
     "@ckies/definitions": "0.2.0",
