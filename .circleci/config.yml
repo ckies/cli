@@ -1,0 +1,139 @@
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: sbstjn/node-yamale
+
+releases: &releases
+  filters:
+    tags:
+      only: /v[0-9]+(\.[0-9]+)*/
+    branches:
+      ignore: /.*/
+
+version: 2
+
+jobs:
+  checkout:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+
+      - run:
+          name: Install Dependencies
+          command: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - '*'
+            - '*.*'
+
+  lint:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - run:
+          name: Lint TypeScript
+          command: yarn lint
+
+  build:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - run:
+          name: Build
+          command: yarn build
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - dist
+
+  test:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - run:
+          name: Run tests
+          command: yarn test
+
+  publish:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - run: 
+          name: Write NPM Token to ~/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+
+      - run:
+          name: Write version to package.json
+          command: $(npm bin)/dot-json package.json version ${CIRCLE_TAG:1}
+
+      - run:
+          name: Publish to NPM
+          command: npm publish --access=public
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - package.json
+
+workflows:
+  version: 2
+
+  build:
+    jobs:
+      - checkout
+      - lint:
+          requires:
+            - checkout
+      - build:
+          requires:
+            - lint
+      - test:
+          requires:
+            - build
+
+  release:
+    jobs:
+      - checkout:
+          <<: *releases
+      - lint:
+          <<: *releases
+          requires:
+            - checkout
+      - build:
+          <<: *releases
+          requires:
+            - lint
+      - test:
+          <<: *releases
+          requires:
+            - build
+      - publish:
+          <<: *releases
+          requires:
+            - test
