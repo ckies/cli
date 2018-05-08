@@ -16,32 +16,23 @@
   "author": "Sebastian Müller <code@sbstjn.com>",
   "license": "MIT",
   "dependencies": {
-    "@ckies/builder": "^0.0.2",
+    "@ckies/builder": "^0.0.4",
     "@ckies/definitions": "0.2.0",
-    "@ckies/pages": "0.0.6",
-    "@types/mkdirp": "^0.5.2",
+    "@ckies/pages": "0.0.7",
+    "js-yaml": "^3.11.0",
     "caporal": "^0.10.0",
-    "dot-json": "^1.0.4",
-    "tslint": "^5.10.0"
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/js-yaml": "^3.11.1",
+    "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.0.4",
-    "@types/react": "^16.3.13",
-    "@types/react-test-renderer": "^16.0.1",
+    "dot-json": "^1.0.4",
     "jest": "^22.4.3",
-    "js-yaml": "^3.11.0",
-    "react": "^16.3.2",
-    "react-test-renderer": "^16.3.2",
-    "remark": "^9.0.0",
-    "remark-html": "^7.0.0",
-    "remark-react": "^4.0.3",
-    "remark-shortcodes": "^0.1.5",
-    "remark-stringify": "^5.0.0",
     "ts-jest": "^22.4.5",
-    "typescript": "^2.8.3",
-    "unist-util-visit": "^1.3.1"
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
   },
   "jest": {
     "transform": {
