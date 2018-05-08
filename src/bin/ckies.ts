@@ -28,15 +28,19 @@ prog
       (language) => console.log(`     - ${language}`)
     )
 
-    console.log(` - ${cfg.services.length} Service(s):`)
-    cfg.services.map(
-      (service) => console.log(`     - ${service.name}`)
-    )
+    if (cfg.services.length > 0) {
+      console.log(` - ${cfg.services.length} Service(s):`)
+      cfg.services.map(
+        (service) => console.log(`     - ${service.name}`)
+      )
+    }
 
-    console.log(` - ${cfg.additions.length} Custom Cookie(s)`)
-    cfg.additions.map(
-      (addition) => console.log(`     - ${addition.name}`)
-    )
+    if (cfg.services.length > 0 && cfg.additions.length > 0) {
+      console.log(` - ${cfg.additions.length} Custom Cookie(s)`)
+      cfg.additions.map(
+        (addition) => console.log(`     - ${addition.name}`)
+      )
+    }
 
     console.log(` - ${cfg.cookies.length} Total Cookie(s)`)
     cfg.cookies.map(
