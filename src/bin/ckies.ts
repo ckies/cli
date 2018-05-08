@@ -10,14 +10,19 @@ import { Policy, Settings } from '@ckies/pages'
 
 import { Config } from '../lib/Config'
 
+const pkg = JSON.parse(
+  fs.readFileSync(`${__dirname}/../../package.json`).toString()
+)
+
 prog
-  .version('0.0.1')
+  .version(pkg.version || '0.0.0-dev')
   .option('--config <file>', 'Use <file> configuration. Default to `cookies.yml`', prog.STRING, 'cookies.yml')
-  .option('--output <path>', 'Write files to <path>. Default to `./dist/cookies`', prog.STRING)
+  .option('--format <type>', 'Use <type> to configure file format. Default to `html`, use `markdown` if you want', /^html|markdown$/, 'html')
+  .option('--output <path>', 'Write files to <path>.', prog.STRING)
   .action((args, options, logger) => {
     const cfg = new Config(options.config)
 
-    console.log(`Running for ${cfg.name} (${options.config}):`)
+    console.log(`Build Cookie Policy & Settings:`)
 
     console.log(` - ${cfg.languages.length} Language(s)`)
     cfg.languages.map(
@@ -66,8 +71,13 @@ prog
         const languagePath = path.resolve(outputPath, `${language.language}/`)
         mkdirp.sync(languagePath)
 
-        fs.writeFileSync(path.resolve(languagePath, `policy.html`), language.files.policy.toHTML())
-        fs.writeFileSync(path.resolve(languagePath, `settings.html`), language.files.settings.toHTML())
+        if (options.format === 'markdown') {
+          fs.writeFileSync(path.resolve(languagePath, `policy.md`), language.files.policy.toMarkdown())
+          fs.writeFileSync(path.resolve(languagePath, `settings.md`), language.files.settings.toMarkdown())
+        } else {
+          fs.writeFileSync(path.resolve(languagePath, `policy.html`), language.files.policy.toHTML())
+          fs.writeFileSync(path.resolve(languagePath, `settings.html`), language.files.settings.toHTML())
+        }
       }
     )
     console.log(` - Files written to ./${path.relative(path.resolve('.'), outputPath)}`)

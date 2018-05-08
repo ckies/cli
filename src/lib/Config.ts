@@ -7,8 +7,6 @@ import * as yaml from 'js-yaml'
 import * as path from 'path'
 
 export interface Configuration {
-  name: string
-  info?: string
   languages?: string[]
   services?: string[]
   additions?: Cookie[]
@@ -23,10 +21,6 @@ export class Config {
     } else {
       this.data = config
     }
-  }
-
-  get name() {
-    return this.data.name
   }
 
   get services() {
