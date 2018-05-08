@@ -16,10 +16,11 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@ckies/builder@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@ckies/builder/-/builder-0.0.4.tgz#3dafdcad41426798e8f7e6560ce719cc0def58fc"
+"@ckies/builder@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@ckies/builder/-/builder-0.0.5.tgz#c3dcb547ffe94fece68b57d3b190eb76ef4d581b"
   dependencies:
+    "@types/react" "^16.3.13"
     react "^16.3.2"
     remark "^9.0.0"
     remark-html "^7.0.0"
@@ -61,6 +62,12 @@
 "@types/node@*", "@types/node@^10.0.4":
   version "10.0.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.4.tgz#130598ee56e9a1210a53f557d64935571f05390d"
+
+"@types/react@^16.3.13":
+  version "16.3.13"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.13.tgz#47d466462b774556c1174ea0eda22c0578643362"
+  dependencies:
+    csstype "^2.2.0"
 
 abab@^1.0.4:
   version "1.0.4"
@@ -838,6 +845,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.2.37.tgz#541097234cb2513c83ceed3acddc27ff27987d54"
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.4.2.tgz#158e36c69566bf968da63d0ba14eda1c20e8643a"
 
 cycle@1.0.x:
   version "1.0.3"

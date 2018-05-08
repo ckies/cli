@@ -16,7 +16,7 @@
   "author": "Sebastian Müller <code@sbstjn.com>",
   "license": "MIT",
   "dependencies": {
-    "@ckies/builder": "^0.0.4",
+    "@ckies/builder": "^0.0.5",
     "@ckies/definitions": "0.2.0",
     "@ckies/pages": "0.0.7",
     "js-yaml": "^3.11.0",
