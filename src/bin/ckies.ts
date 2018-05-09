@@ -16,13 +16,29 @@ const pkg = JSON.parse(
 
 prog
   .version(pkg.version || '0.0.0-dev')
+  .option('--flat', 'Skip language folder and export single language', prog.BOOL)
+  .option('--language <language>', 'Just generate pages for <language>', prog.STRING)
   .option('--config <file>', 'Use <file> asconfiguration', prog.STRING, 'cookies.yml')
   .option('--format <type>', 'Use <type> to configure file format (html, markdown)', /^html|markdown$/, 'html')
   .option('--output <path>', 'Write files to <path>', prog.STRING)
   .action((args, options, logger) => {
     const cfg = new Config(options.config)
 
+    if (options.language) {
+      cfg.setLanguage(options.language)
+    }
+
     console.log(`Build Cookie Policy & Settings:`)
+
+    if (options.flat && cfg.languages.length > 1) {
+      console.log(`\nError: You cannot pass --single and configure multiple languages`)
+      process.exit(1)
+    }
+
+    if (cfg.languages.length === 0) {
+      console.log(`\nError: No language(s) configured`)
+      process.exit(1)
+    }
 
     console.log(` - ${cfg.languages.length} Language(s)`)
     cfg.languages.map(
@@ -68,7 +84,14 @@ prog
 
     languages.forEach(
       (language) => {
-        const languagePath = path.resolve(outputPath, `${language.language}/`)
+        let languagePath
+
+        if (options.flat) {
+          languagePath = path.resolve(outputPath)
+        } else {
+          languagePath = path.resolve(outputPath, `${language.language}/`)
+        }
+
         mkdirp.sync(languagePath)
 
         if (options.format === 'markdown') {

@@ -52,6 +52,10 @@ export class Config {
     ) as Cookie[]
   }
 
+  public setLanguage(language: string) {
+    this.data.languages = [language]
+  }
+
   public Policy(language: string) {
     return new Policy(language)
   }
