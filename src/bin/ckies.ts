@@ -17,6 +17,7 @@ const pkg = JSON.parse(
 prog
   .version(pkg.version || '0.0.0-dev')
   .option('--flat', 'Skip language folder and export single language', prog.BOOL)
+  .option('--silent', 'Skip console output for build process', prog.BOOL)
   .option('--language <language>', 'Just generate pages for <language>', prog.STRING)
   .option('--config <file>', 'Use <file> asconfiguration', prog.STRING, 'cookies.yml')
   .option('--format <type>', 'Use <type> to configure file format (html, markdown)', /^html|markdown$/, 'html')
@@ -28,7 +29,9 @@ prog
       cfg.setLanguage(options.language)
     }
 
-    console.log(`Build Cookie Policy & Settings:`)
+    if (!options.silent) {
+      console.log(`Build Cookie Policy & Settings:`)
+    }
 
     if (options.flat && cfg.languages.length > 1) {
       console.log(`\nError: You cannot pass --single and configure multiple languages`)
@@ -40,38 +43,45 @@ prog
       process.exit(1)
     }
 
-    console.log(` - ${cfg.languages.length} Language(s)`)
-    cfg.languages.map(
-      (language) => console.log(`     - ${language}`)
-    )
+    if (!options.silent && cfg.languages.length > 0) {
+      console.log(` - ${cfg.languages.length} Language(s)`)
+      cfg.languages.map(
+        (language) => console.log(`     - ${language}`)
+      )
+    }
 
-    if (cfg.services.length > 0) {
+    if (!options.silent && cfg.services.length > 0) {
       console.log(` - ${cfg.services.length} Service(s):`)
       cfg.services.map(
         (service) => console.log(`     - ${service.name}`)
       )
     }
 
-    if (cfg.services.length > 0 && cfg.additions.length > 0) {
+    if (!options.silent && cfg.services.length > 0 && cfg.additions.length > 0) {
       console.log(` - ${cfg.additions.length} Custom Cookie(s)`)
       cfg.additions.map(
         (addition) => console.log(`     - ${addition.name}`)
       )
     }
 
-    console.log(` - ${cfg.cookies.length} Total Cookie(s)`)
-    cfg.cookies.map(
-      (cookie) => console.log(`     - ${cookie.name}`)
-    )
+    if (!options.silent && cfg.cookies.length > 0) {
+      console.log(` - ${cfg.cookies.length} Total Cookie(s)`)
+      cfg.cookies.map(
+        (cookie) => console.log(`     - ${cookie.name}`)
+      )
+    }
 
-    if (!options.output) {
+    if (!options.silent && !options.output) {
       console.log(` - Skipped build process.\n   Use --output to configure destination.`)
       return
     }
 
     const outputPath = path.resolve(options.output)
 
-    console.log(` - Building …`)
+    if (!options.silent) {
+      console.log(` - Building …`)
+    }
+
     const languages = cfg.languages.map(
       (language) => ({
         files: {
@@ -103,7 +113,10 @@ prog
         }
       }
     )
-    console.log(` - Files written to ./${path.relative(path.resolve('.'), outputPath)}`)
+
+    if (!options.silent) {
+      console.log(` - Files written to ./${path.relative(path.resolve('.'), outputPath)}`)
+    }
   })
 
 prog.parse(process.argv)
