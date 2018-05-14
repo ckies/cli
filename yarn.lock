@@ -32,9 +32,9 @@
   dependencies:
     js-yaml "^3.11.0"
 
-"@ckies/pages@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@ckies/pages/-/pages-0.0.7.tgz#9fc7ab9aca23e86b3b8325583add227402ac1d7a"
+"@ckies/pages@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@ckies/pages/-/pages-0.0.8.tgz#1d3714b79047b6cad33cba3bc75a59199e27868d"
 
 "@types/jest@^22.2.3":
   version "22.2.3"
