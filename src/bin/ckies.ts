@@ -82,11 +82,12 @@ prog
       console.log(` - Building …`)
     }
 
+    const builderOptions = { cookies: cfg.cookies, links: cfg.links }
     const languages = cfg.languages.map(
       (language) => ({
         files: {
-          policy: new Builder(new Policy(language), cfg.cookies),
-          settings: new Builder(new Settings(language), cfg.cookies)
+          policy: new Builder(new Policy(language), builderOptions),
+          settings: new Builder(new Settings(language), builderOptions)
         },
         language
       })

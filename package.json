@@ -16,11 +16,11 @@
   "author": "Sebastian Müller <code@sbstjn.com>",
   "license": "MIT",
   "dependencies": {
-    "@ckies/builder": "^0.0.6",
+    "@ckies/builder": "0.0.7",
     "@ckies/definitions": "0.2.0",
-    "@ckies/pages": "0.0.8",
-    "js-yaml": "^3.11.0",
+    "@ckies/pages": "0.0.9",
     "caporal": "^0.10.0",
+    "js-yaml": "^3.11.0",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {

@@ -7,6 +7,10 @@ import * as yaml from 'js-yaml'
 import * as path from 'path'
 
 export interface Configuration {
+  links?: {
+    policy?: string
+    settings?: string
+  }
   languages?: string[]
   services?: string[]
   additions?: Cookie[]
@@ -28,6 +32,12 @@ export class Config {
       this.data.services || []
     ).map(
       (service) => new Service(service)
+    )
+  }
+
+  get links() {
+    return (
+      this.data.links || {}
     )
   }
 

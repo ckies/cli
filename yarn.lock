@@ -16,9 +16,9 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@ckies/builder@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@ckies/builder/-/builder-0.0.6.tgz#aebeb5d3f6c4eafeeaa8f308e68f064b6e148567"
+"@ckies/builder@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@ckies/builder/-/builder-0.0.7.tgz#fe27fcb762fe04d5893d7b8521948884071c2f68"
   dependencies:
     remark "^9.0.0"
     remark-html "^7.0.0"
@@ -32,9 +32,9 @@
   dependencies:
     js-yaml "^3.11.0"
 
-"@ckies/pages@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@ckies/pages/-/pages-0.0.8.tgz#1d3714b79047b6cad33cba3bc75a59199e27868d"
+"@ckies/pages@0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@ckies/pages/-/pages-0.0.9.tgz#8bda3a72e2828603a98bd30a5f61d09b72621295"
 
 "@types/jest@^22.2.3":
   version "22.2.3"
